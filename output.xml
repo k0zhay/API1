@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1 (Python 3.10.9 on win32)" generated="20230628 17:52:03.479" rpa="false" schemaversion="4">
+<robot generator="Robot 6.1 (Python 3.10.9 on win32)" generated="20230628 18:10:09.240" rpa="false" schemaversion="4">
 <suite id="s1" name="Api1" source="C:\Users\kozha\IdeaProjects\API1\api1.robot">
 <test id="s1-t1" name="Geocoding" line="39">
 <kw name="Geocoding" library="geocoding">
@@ -11,16 +11,16 @@
 Спойлер: всё очень плохо(
 В принципе, можно даже ввести балльную систему: если все параметры совпали - 3 балла,
 улица и город - 2 балла, только город - 1 балл "за старание".</doc>
-<msg timestamp="20230628 17:52:13.466" level="INFO">0</msg>
-<msg timestamp="20230628 17:52:13.466" level="INFO">${count} = 0</msg>
-<status status="PASS" starttime="20230628 17:52:08.476" endtime="20230628 17:52:13.466"/>
+<msg timestamp="20230628 18:10:29.147" level="INFO">0</msg>
+<msg timestamp="20230628 18:10:29.148" level="INFO">${count} = 0</msg>
+<status status="PASS" starttime="20230628 18:10:21.354" endtime="20230628 18:10:29.148"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${count}</arg>
 <arg>${5}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<msg timestamp="20230628 17:52:13.467" level="FAIL">0 != 5</msg>
-<status status="FAIL" starttime="20230628 17:52:13.466" endtime="20230628 17:52:13.467"/>
+<msg timestamp="20230628 18:10:29.149" level="FAIL">0 != 5</msg>
+<status status="FAIL" starttime="20230628 18:10:29.148" endtime="20230628 18:10:29.149"/>
 </kw>
 <doc>Тест с заранее подготовленными данными (адреса) по которым находим координаты.
 По найденым координатам пытаемся найти исходный адрес (обратное геокодирование).
@@ -28,9 +28,9 @@
 пройден. Если хотя бы один из этих параметров не обнаружен - не пройден.
 Проверяем только один результат поиска (параметр limit = 1).
 Спойлер: всё плохо, номер дома он наотрез отказывается выдавать(</doc>
-<status status="FAIL" starttime="20230628 17:52:08.474" endtime="20230628 17:52:13.467">0 != 5</status>
+<status status="FAIL" starttime="20230628 18:10:21.352" endtime="20230628 18:10:29.150">0 != 5</status>
 </test>
-<status status="FAIL" starttime="20230628 17:52:03.486" endtime="20230628 17:52:13.468"/>
+<status status="FAIL" starttime="20230628 18:10:09.243" endtime="20230628 18:10:29.150"/>
 </suite>
 <statistics>
 <total>

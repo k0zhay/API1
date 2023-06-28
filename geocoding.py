@@ -59,8 +59,4 @@ def geocoding():
 
             addr = addresses_list.readline()  # Переходим к следующему адресу
 
-    print(count)
     return count
-
-
-geocoding()
