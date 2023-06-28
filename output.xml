@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1 (Python 3.10.9 on win32)" generated="20230624 15:39:13.769" rpa="false" schemaversion="4">
+<robot generator="Robot 6.1 (Python 3.10.9 on win32)" generated="20230628 17:52:03.479" rpa="false" schemaversion="4">
 <suite id="s1" name="Api1" source="C:\Users\kozha\IdeaProjects\API1\api1.robot">
-<test id="s1-t1" name="limit cdek" line="29">
-<kw name="cdek_addresses">
-<var>${limit}</var>
-<msg timestamp="20230624 15:39:14.433" level="FAIL">No keyword with name 'cdek_addresses' found.</msg>
-<status status="FAIL" starttime="20230624 15:39:14.433" endtime="20230624 15:39:14.433"/>
+<test id="s1-t1" name="Geocoding" line="39">
+<kw name="Geocoding" library="geocoding">
+<var>${count}</var>
+<doc>На входе файл с перечисленными адресами пунктов СДЭК.
+Сначала проводим прямое геокодирование (ПГ) и получаем координаты, соответствующие указанному
+адресу. После проводим обратное геокодирование (ОГ) и проверяем, получим ли мы тот же адрес при
+поиске по координатам. В итоге считаем, сколько получено совпадений.
+Спойлер: всё очень плохо(
+В принципе, можно даже ввести балльную систему: если все параметры совпали - 3 балла,
+улица и город - 2 балла, только город - 1 балл "за старание".</doc>
+<msg timestamp="20230628 17:52:13.466" level="INFO">0</msg>
+<msg timestamp="20230628 17:52:13.466" level="INFO">${count} = 0</msg>
+<status status="PASS" starttime="20230628 17:52:08.476" endtime="20230628 17:52:13.466"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
-<arg>${limit}</arg>
+<arg>${count}</arg>
 <arg>${5}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="NOT RUN" starttime="20230624 15:39:14.434" endtime="20230624 15:39:14.434"/>
+<msg timestamp="20230628 17:52:13.467" level="FAIL">0 != 5</msg>
+<status status="FAIL" starttime="20230628 17:52:13.466" endtime="20230628 17:52:13.467"/>
 </kw>
-<doc>Тест с заранее подготовленными данными (адреса СДЭК с оффициального сайта).
-Ожидается, что на всех адресах находятся пункты выдачи СДЭК.</doc>
-<status status="FAIL" starttime="20230624 15:39:14.427" endtime="20230624 15:39:14.434">No keyword with name 'cdek_addresses' found.</status>
+<doc>Тест с заранее подготовленными данными (адреса) по которым находим координаты.
+По найденым координатам пытаемся найти исходный адрес (обратное геокодирование).
+Если в полученном результате получены: город, улица и номер дома - тест
+пройден. Если хотя бы один из этих параметров не обнаружен - не пройден.
+Проверяем только один результат поиска (параметр limit = 1).
+Спойлер: всё плохо, номер дома он наотрез отказывается выдавать(</doc>
+<status status="FAIL" starttime="20230628 17:52:08.474" endtime="20230628 17:52:13.467">0 != 5</status>
 </test>
-<status status="FAIL" starttime="20230624 15:39:13.775" endtime="20230624 15:39:14.436"/>
+<status status="FAIL" starttime="20230628 17:52:03.486" endtime="20230628 17:52:13.468"/>
 </suite>
 <statistics>
 <total>

@@ -1,0 +1,58 @@
+# Просто тренировочная программка, чтобы прогонять геокодирование без списка
+import requests
+import links
+
+
+def train(city, street, house_number):
+    """
+    Функция возвращает ответ на запрос в формате json, в котором мы ищем упоминаение "СДЭК".
+    Как правило, если не спервого раза, то со второго, он говорит о том, есть ли по данному
+    адресу пункт СДЭК (с первого раза иногда выдает просто полный адрес здания).
+    """
+    count = 0  # Количество адресов из списка, по которым обнаружен пункт СДЭК
+
+    # Параметры для поиска с заранее заготовленным адресом
+    dir_geo_params = {
+        "city": city,
+        "street": street,
+        "house_number": house_number,
+        "limit": 2,
+        "format": 'json'
+    }
+
+    dir_response = requests.get(url=links.search_url, params=dir_geo_params)
+
+    dir_geocoding = dir_response.json()  # Полный результат при поиске по адресу
+
+    if dir_response.ok:
+        # Ссылка для поиска по координатам
+        reverse_url = "https://nominatim.openstreetmap.org/reverse"
+
+        latitude = dir_geocoding[0]['lat']  # Широта по прямому геокодированию
+        longitude = dir_geocoding[0]['lon']  # Долгота по прямому геокодированию
+
+        # Параметры для поиска с координатами, полученными после прямого геокодирования
+        rev_geo_params = {
+            "lat": latitude,
+            "lon": longitude,
+            "limit": 1,
+            "format": 'json'
+        }
+
+        rev_response = requests.get(url=reverse_url, params=rev_geo_params)
+
+        rev_geocoding = rev_response.json()  # Полный результат при поиске по координатам
+        rev_address = rev_geocoding['display_name']  # Полученный адрес по обратному геокодированию
+
+        # Дом и улица объединены, чтобы мы случайно не "нашли" номер дома в индексе
+        if rev_response.ok and city and rev_address and \
+                (house_number + ', ' + street) in rev_address:
+            count += 1
+
+        print(dir_geocoding)
+
+    print(count)
+    return count
+
+
+train('Санкт-Петербург', '1-я линия В.О.', '34')

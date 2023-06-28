@@ -1,6 +1,8 @@
 *** Settings ***
-Library    API1.py
-Library  API1.py
+Library    get_limit.py
+Library    no_limit.py
+Library    find_cdek.py
+Library    geocoding.py
 
 *** Variables ***
 ${x}    19
@@ -23,11 +25,23 @@ Limit max
 
 Limit default
     [Documentation]    Параметр limit не задан, ожидаемое кол-во записей равно дефолтному.
+
     ${limit}=    no_limit
     Should Be Equal  ${limit}  ${10}
 
-limit cdek
+Find cdek
    [Documentation]    Тест с заранее подготовленными данными (адреса СДЭК с оффициального сайта).
    ...                Ожидается, что на всех адресах находятся пункты выдачи СДЭК.
-   ${limit}=    cdek_addresses
-   Should Be Equal  ${limit}       ${5}
+
+   ${count}=    find_cdek
+   Should Be Equal  ${count}       ${5}
+
+Geocoding
+    [Documentation]    Тест с заранее подготовленными данными (адреса) по которым находим координаты.
+    ...                По найденым координатам пытаемся найти исходный адрес (обратное геокодирование).
+    ...                Если в полученном результате получены: город, улица и номер дома - тест
+    ...                пройден. Если хотя бы один из этих параметров не обнаружен - не пройден.
+    ...                Проверяем только один результат поиска (параметр limit = 1).
+    ...                Спойлер: всё плохо, номер дома он наотрез отказывается выдавать(
+    ${count}=    geocoding
+    Should Be Equal  ${count}       ${5}
